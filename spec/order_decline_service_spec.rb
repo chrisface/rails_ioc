@@ -18,10 +18,10 @@ describe OrderDeclineService do
       let(:mock_billing_service) { { hehe: 'lol' } }
 
       it "can override a dependency" do
-        oms = OrderDeclineService.build({
+        oms = OrderDeclineService.build(
           param_1: param_1,
           billing_service: mock_billing_service
-        })
+        )
 
         expect(oms.billing_service).to eq(mock_billing_service)
       end
