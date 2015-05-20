@@ -63,8 +63,9 @@ module InversionOfControl
     # add a DSL method to specify the dependencies to inject on a class
     def inject(*injectables)
       @injectables = injectables.inject({}) do |hash, injectable|
-        hash[injectable] = service_from_name(injectable)
-        self.send(:attr_accessor, injectable)
+        name, injectable = service_from_name(injectable)
+        hash[name] = injectable
+        self.send(:attr_accessor, name)
         hash
       end
     end
@@ -75,9 +76,13 @@ module InversionOfControl
     end
 
     # One way of turning a symbol into a class for default injection bindings
-    def service_from_name(name)
-      registered_class = InversionOfControl.configuration[:dependencies][name]
-      class_name = registered_class || "#{name}".camelize.constantize
+    def service_from_name(injectable)
+      # If a hash was passed in then assume it was providing an overriding injectable
+      return injectable.first if injectable.is_a?(Hash)
+
+      registered_class = InversionOfControl.configuration[:dependencies][injectable]
+      class_name = registered_class || "#{injectable}".camelize.constantize
+      [injectable, class_name]
     end
   end
 end

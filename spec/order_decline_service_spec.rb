@@ -17,13 +17,14 @@ describe OrderDeclineService do
     context "dependency injection!" do
       let(:mock_billing_service) { { hehe: 'lol' } }
 
-      it "can override a dependency" do
+      it "blows up when given a stupid billing service" do
         oms = OrderDeclineService.build(
           param_1: param_1,
           billing_service: mock_billing_service
         )
 
         expect(oms.billing_service).to eq(mock_billing_service)
+        expect { oms.decline_order }.to raise_exception
       end
     end
   end
