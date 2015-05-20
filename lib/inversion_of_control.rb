@@ -1,4 +1,17 @@
 module InversionOfControl
+
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= { dependencies: {}}
+  end
+
+  def self.configure
+    yield configuration if block_given?
+  end
+
   def self.included(klass)
     klass.extend(ClassMethods)
   end
@@ -63,7 +76,8 @@ module InversionOfControl
 
     # One way of turning a symbol into a class for default injection bindings
     def service_from_name(name)
-      class_name = "#{name}".camelize.constantize
+      registered_class = InversionOfControl.configuration[:dependencies][name]
+      class_name = registered_class || "#{name}".camelize.constantize
     end
   end
 end
