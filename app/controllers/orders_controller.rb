@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     # We can also override dependencies as well.
     order_decline_service = OrderDeclineService.build(
       param_1: "silly param",
-      billing_service: SomeOtherPaymentImpl, #If the class has IOC support .build is called
+      billing_service: SomeOtherPaymentImpl.new, #If the class has IOC support .build is called
       customer_contact_service: TwitterContactService.new # You can pass anything in really as a dependency
     )
 

@@ -8,9 +8,9 @@ describe OrdersController, :type => :controller do
 
       it "accepts an order and returns 200" do
 
-        # You can call inject_services at any point after construction. They will
+        # You can call inject dependencies at any point after construction. They will
         # be available for all before_actions
-        controller.inject_services(
+        controller.inject_dependencies(
           order_acceptance_service: mock_failing_service
         )
 
@@ -33,7 +33,7 @@ describe OrdersController, :type => :controller do
 
       it "accepts an order and returns 200" do
 
-        controller.inject_services(
+        controller.inject_dependencies(
           order_acceptance_service: mock_successful_service
         )
 

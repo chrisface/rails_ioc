@@ -1,9 +1,8 @@
 class OrderDeclineService
   include InversionOfControl
 
-  # Look classes up by symbol name or provide alternate impl. can also be
-  # overriden by .build
-  inject({billing_service: SomeOtherPaymentImpl}, :customer_contact_service, :order_repository)
+  # Look classes up by symbol name
+  inject(:billing_service, :customer_contact_service, :order_repository)
 
   attr_accessor :param_1, :param_2
 

@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
 
   def initialize
     super
-    self.inject_services if self.respond_to?(:inject_services)
+    self.inject_dependencies if self.respond_to?(:inject_dependencies)
   end
 end

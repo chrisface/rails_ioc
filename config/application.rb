@@ -35,9 +35,11 @@ module RailsServicesExamples
 
     config.after_initialize do
       InversionOfControl.configure do |config|
-        config[:dependencies] = {
+        config.dependencies = {
           # billing_service: SomeOtherPaymentImpl
         }
+        config.auto_resolve_unregistered_dependency = true
+        config.instantiate_dependencies = true
       end
     end
 
