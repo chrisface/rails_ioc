@@ -1,7 +1,6 @@
 class OrderAcceptanceService
   include InversionOfControl
 
-  # Look classes up by symbol name or provide alternate impl. in constructor
   inject :billing_service, :customer_contact_service, :order_repository
 
   def accept_order(id)

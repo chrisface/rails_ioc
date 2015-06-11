@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   def initialize
     super
+    # We're unable to instantiate the controller ourselves with .build, so
+    # inject the dependencies manually before they are required
     self.inject_dependencies if self.respond_to?(:inject_dependencies)
   end
 end
